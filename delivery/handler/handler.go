@@ -42,7 +42,7 @@ func NewBookHandler(router *gin.Engine, bu domain.BookUseCase, path string, time
 func (h *BookHandler) FetchBooks(c *gin.Context) {
 	books, err := h.BookUseCase.FetchBooks(c.Request.Context())
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, errorResponse{response: response{Status: statusFail, Code: codeFail}, Error: err.Error()})
+		c.JSON(apperror.Status(err), errorResponse{response: response{Status: statusFail, Code: codeFail}, Error: err.Error()})
 		return
 	}
 
