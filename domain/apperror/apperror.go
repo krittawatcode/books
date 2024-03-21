@@ -53,6 +53,8 @@ func (e *Error) Status() int {
 		return http.StatusNotFound
 	case PayloadTooLarge:
 		return http.StatusRequestEntityTooLarge
+	case ServiceUnavailable:
+		return http.StatusServiceUnavailable
 	case UnsupportedMediaType:
 		return http.StatusUnsupportedMediaType
 	default:
