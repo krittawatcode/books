@@ -16,7 +16,12 @@ The project exposes the following RESTful API endpoints:
 
 - `GET /books`: Fetch all books
 - `GET /books/{id}`: Fetch a book by its ID
-- `POST /books`: Create a new book
+- `POST /books`:  Create a new book. The request body should be a JSON object with the following structure: `
+{
+    "title": "test100x",
+    "author": "Prach",
+    "publication_year": "1994"
+}`
 - `PUT /books/{id}`: Update a book by its ID
 - `DELETE /books/{id}`: Delete a book by its ID
 
