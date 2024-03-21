@@ -2,14 +2,12 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/krittawatcode/books/delivery/handler"
 	"github.com/krittawatcode/books/repository"
 	"github.com/krittawatcode/books/usecase"
@@ -21,12 +19,6 @@ func inject() (*gin.Engine, error) {
 
 	// initialize gin.Engine
 	router := gin.Default()
-
-	// get environment variables
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 
 	booksPath := os.Getenv("BOOKS_PATH")
 	handlerTimeout := os.Getenv("HANDLER_TIMEOUT")

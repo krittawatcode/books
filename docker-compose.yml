@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`localhost`)"
+      - "traefik.http.routers.app.middlewares=ipwhitelist"
+      - "traefik.http.services.app.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=192.168.1.1/24" # Replace with your IP range
+    volumes:
+      - .:/go/src/app
+    environment:
+      - BOOKS_PATH=/books
+      - HANDLER_TIMEOUT=7
+
+  traefik:
+    image: "traefik:v2.5"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:8081"
+    ports:
+      - "8081:8081"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
